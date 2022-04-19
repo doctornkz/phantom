@@ -8,11 +8,11 @@
 
 namespace pd { namespace http {
 
-static char const *(wnames[7]) = {
+static char const *wnames[7] = {
 	"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"
 };
 
-static char const *(mnames[12]) = {
+static char const *mnames[12] = {
 	"Jan", "Feb", "Mar", "Apr", "May", "Jun",
 	"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 };
@@ -446,10 +446,14 @@ bool time_parse(in_segment_t const &str, timeval_t &time) {
 			case 3: //"Thursday"
 				if(*(ptr++) != 'r') return false;
 				--len;
+				// BYME:
+				[[fallthrough]];
 			case 1: // "Tuesday"
 			_sday:
 				if(*(ptr++) != 's') return false;
 				--len;
+				// BYME:
+				[[fallthrough]];				
 			case 0: case 4: case 6:
 			_day:
 				if(

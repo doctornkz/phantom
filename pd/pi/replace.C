@@ -51,22 +51,31 @@ struct pi_t::replace_t {
 
 	inline void copy_head(pi_t const *dst_from) throw() {
 		memcpy(
-			&res_root->value, &dst_root.value,
+			(char*)&res_root->value, &dst_root.value,
 			(dst_from - &dst_root.value) * sizeof(pi_t)
 		);
+		// BYME:
+		// memcpy(
+		// 	&res_root->value, &dst_root.value,
+		// 	(dst_from - &dst_root.value) * sizeof(pi_t)
+		// );
 	}
 
 	inline void copy_obj(
 		pi_t const *dst_from, pi_t const *src_from, _size_t size
 	) throw() {
 		pi_t *res_from = __res(dst_from);
-		memcpy(res_from, src_from, size * sizeof(pi_t));
+		// BYME: 
+		// memcpy(res_from, src_from, size * sizeof(pi_t));
+		memcpy((char*)res_from, src_from, size * sizeof(pi_t));
 	}
 
 	inline void copy_tail(pi_t const *dst_to) throw() {
 		pi_t *res_to = __res(dst_to) + delta;
 		_size_t size = dst_root.size - (dst_to - (pi_t const *)&dst_root);
-		memcpy(res_to, dst_to, size * sizeof(pi_t));
+		// BYME:
+		//memcpy(res_to, dst_to, size * sizeof(pi_t));
+		memcpy((char*)res_to, dst_to, size * sizeof(pi_t));
 	}
 };
 

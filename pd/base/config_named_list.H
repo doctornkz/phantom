@@ -15,7 +15,9 @@ namespace pd { namespace config {
 
 template<typename x_t>
 class named_list_item_t : public list_item_t<x_t> {
-protected:
+// BYME
+//protected:
+public:
 	string_t name;
 
 	static x_t *list;

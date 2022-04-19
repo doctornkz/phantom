@@ -104,7 +104,8 @@ bool in_segment_list_t::page_t::optimize(in_segment_t &_segment) const {
 	if(_off + _size <= segment.size()) {
 		in_t::ptr_t ptr = segment;
 		ptr += _off;
-		_segment = in_segment_t(ptr, _size);
+		// BYME:
+		// _segment = in_segment_t(ptr, _size);
 
 		return true;
 	}

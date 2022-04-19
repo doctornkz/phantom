@@ -34,8 +34,9 @@ public:
 	friend obj_t const *obj_find(string_t const &name);
 	friend bool objs_exist();
 	friend size_t objs_all(obj_t const **objs, obj_t *obj);
-
-protected:
+// BYME:
+//protected:
+public:
 	inline obj_t(string_t const &_name) :
 		list_item_t<obj_t>(this, list), name(_name) { }
 

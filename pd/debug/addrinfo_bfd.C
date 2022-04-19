@@ -70,7 +70,7 @@ class bfd_t {
 		inline void operator delete(void *ptr) { ::free(ptr); }
 
 		file_t *find(char const *_name) {
-			return (!this || !strcmp(name, _name))
+			return (!strcmp(name, _name))
 				? this
 				: next->find(_name)
 			;
@@ -147,7 +147,9 @@ void bfd_t::file_t::setup() {
 	unsigned int _section_count = 0;
 
 	for(asection *sect = _abfd->sections; sect != NULL; sect = sect->next) {
-		if(!(bfd_get_section_flags(_abfd, sect) & SEC_CODE))
+		// BYME:
+		//if(!(bfd_get_section_flags(_abfd, sect) & SEC_CODE))
+		if(!(bfd_section_flags(sect) & SEC_CODE))
 			continue;
 
 		++_section_count;
@@ -157,7 +159,9 @@ void bfd_t::file_t::setup() {
 	asection **sectp = _sections;
 
 	for(asection *sect = _abfd->sections; sect != NULL; sect = sect->next) {
-		if(!(bfd_get_section_flags(_abfd, sect) & SEC_CODE))
+		// BYME:
+		//if(!(bfd_get_section_flags(_abfd, sect) & SEC_CODE))
+		if(!(bfd_section_flags(sect) & SEC_CODE))
 			continue;
 
 		*(sectp++) = sect;
@@ -182,13 +186,15 @@ void bfd_t::file_t::print(
 
 	for(unsigned int i = 0; i < section_count; ++i) {
 		asection *sect = sections[i];
-
-		bfd_vma vma = bfd_get_section_vma(abfd, sect);
+		// BYME:
+		//bfd_vma vma = bfd_get_section_vma(abfd, sect);
+		bfd_vma vma = bfd_section_vma(sect);
 
 		if(pc < vma)
 			continue;
-
-		bfd_size_type size = bfd_get_section_size(sect);
+		// BYME:	
+		//bfd_size_type size = bfd_get_section_size(sect);
+		bfd_size_type size = bfd_section_size(sect);
 		if(pc >= vma + size)
 			continue;
 

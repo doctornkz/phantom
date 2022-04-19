@@ -114,6 +114,8 @@ static inline bool parse_signed(
 	bool sign = false;
 	switch(*p) {
 		case '-': sign = true;
+		// BYME:
+		[[fallthrough]];
 		case '+': ++p;
 	};
 

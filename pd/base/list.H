@@ -14,9 +14,8 @@ namespace pd {
 
 template<typename x_t>
 class list_item_t {
-// BYME:
-//protected:
-public:
+protected:
+
 	x_t *next, **me;
 
 	inline list_item_t(x_t *_this, x_t *&list) throw() {

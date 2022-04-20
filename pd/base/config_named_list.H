@@ -13,11 +13,10 @@
 
 namespace pd { namespace config {
 
+
 template<typename x_t>
 class named_list_item_t : public list_item_t<x_t> {
-// BYME
-//protected:
-public:
+protected:
 	string_t name;
 
 	static x_t *list;
@@ -29,7 +28,8 @@ public:
 
 public:
 	static inline x_t &find(string_t const &_name, in_t::ptr_t const &ptr) {
-		for(x_t *item = list; item; item = item->next)
+
+	for(x_t *item = list; item; item = item->next)
 			if(string_t::cmp_eq<ident_t>(_name, item->name)) return *item;
 
 		error(ptr, "name is not found");
